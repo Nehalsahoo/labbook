@@ -1,0 +1,46 @@
+package com.cg.iter.lab8;
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class CopyData extends Thread {
+	FileReader fr ;
+	FileWriter fw ;
+	CopyData(FileReader fr ,FileWriter fw )
+	{
+		this.fr=fr;
+		this.fw=fw;
+	}
+	@Override
+	public void run() {
+
+		try {
+			int i=1;
+			int c=fr.read();
+			while(c!=-1) {
+				//System.out.println(Character.toChars(c));
+				i++;
+				if(i==10) {
+					System.out.println("10 characters are copied");
+					Thread.sleep(5000);
+					i=1;
+				}
+				fw.write(Character.toChars(c));
+				c=fr.read();
+			}
+			fw.close();
+			fr.close();
+			System.out.println("file copied");
+		}catch (FileNotFoundException e) {e.printStackTrace();
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}
